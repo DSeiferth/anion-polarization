@@ -1,0 +1,21 @@
+; Include forcefield parameters
+#include "itp/forcefield.itp"
+#include "itp/BIO_deprot_parsley.itp"
+; Include Position restraint file for three carbon cavity atoms
+#ifdef POSRES_3CAV
+#include "carbon_cav.itp"
+#endif
+#include "itp/tip3p.itp"
+#include "itp/ions.itp"
+
+[ system ]
+; Name
+deprotonated Biotin sulfoxide in water parsley
+
+[ molecules ]
+; Compound	#mols
+UNL                1
+
+SOL         5139
+K                7
+CL               1
