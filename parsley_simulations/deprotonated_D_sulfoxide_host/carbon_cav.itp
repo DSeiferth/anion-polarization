@@ -1,0 +1,7 @@
+; position restraints for a_71_a_73_a_11 of Biotin in water parsley
+
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+  11    1      50000      50000      50000
+  71    1      50000      50000      50000
+  73    1      50000      50000      50000

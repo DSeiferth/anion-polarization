@@ -1,0 +1,42 @@
+title       = Umbrella pulling simulation
+define      = -DPOSRES_3CAV ; Include Position restraint file for three carbon cavity atoms
+
+integrator  = steep         ; Algorithm (steep = steepest descent minimization)
+emtol       = 1000.0        ; Stop minimization when the maximum force < 1000.0 kJ/mol/nm
+emstep      = 0.01          ; Minimization step size
+nsteps      = 100000         ; Maximum number of (minimization) steps to perform, Lemkul used 50000
+
+; Parameters describing how to find the neighbors of each atom and how to calculate the interactions
+nstlist         = 1         ; Frequency to update the neighbor list and long range forces
+cutoff-scheme   = Verlet    ; Buffered neighbor searching
+ns_type         = grid      ; Method to determine neighbor list (simple, grid)
+coulombtype     = PME       ; Treatment of long range electrostatic interactions
+rcoulomb        = 1.0       ; Short-range electrostatic cut-off
+rvdw            = 1.0       ; Short-range Van der Waals cut-off
+pbc             = xyz       ; Periodic Boundary Conditions in all 3 dimensions
+
+; Pull code
+pull                    = yes
+pull_ncoords            = 2         ; two reaction coordinate
+pull_ngroups            = 2         ; two groups defining one reaction coordinate
+
+pull_group1_name        = a_11_a_35_a_38_a_46_a_52_a_63_a_67_a_68_a_71_a_73_a_74_a_76
+pull_group2_name        = a_18020
+pull_coord1_type        = umbrella  ; harmonic potential
+pull_coord1_geometry    = distance  ; simple distance increase
+pull_coord1_dim         = N N Y     ; pull only in z direction
+pull_coord1_groups      = 1 2
+pull_coord1_init = 0
+pull_coord1_start       = no       ; yes => define initial COM distance > 0
+pull_coord1_rate        = 0.0      ;
+pull_coord1_k           = 500      ; kJ mol^-1 nm^-2
+
+; Cylinder
+pull_coord2_type        = flat-bottom  ; umbrella = harmonic potential
+pull_coord2_geometry    = distance  ; simple distance increase
+pull_coord2_dim         = Y Y N     ; pull only in x y direction
+pull_coord2_groups      = 1 2
+pull_coord2_init        = 0.35         ; At distances above pull-coord1-init a harmonic potential is applied, otherwise no potential is applied.
+pull_coord2_start       = no       ; yes => define initial COM distance > 0
+pull_coord2_rate        = 0.0      ;
+pull_coord2_k           = 5000      ; kJ mol^-1 nm^-2

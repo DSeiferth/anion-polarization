@@ -1,0 +1,89 @@
+title       = Umbrella pulling simulation
+define      = -DPOSRES_3CAV ; Include Position restraint file for three carbon cavity atoms
+; Run parameters
+integrator  = md
+dt          = 0.002
+tinit       = 0
+nsteps      = 12500000   ; 25,000ps
+nstcomm     = 10
+;----------------------------------------------------
+; OUTPUT CONTROL
+;----------------------------------------------------
+nstxout                = 0          ; don't save coordinates to .trr
+nstvout                = 0          ; don't save velocities to .trr
+nstfout                = 0          ; don't save forces to .trr
+nstxout-compressed     = 1000       ; xtc compressed trajectory output every 1000 steps (2 ps)
+compressed-x-precision = 1000       ; precision with which to write to the compressed trajectory file
+nstlog                 = 1000       ; update log file every 2 ps
+nstenergy              = 1000       ; save energies every 2 ps
+nstcalcenergy          = 100        ; calculate energies every 100 steps
+
+
+; Bond parameters
+constraint_algorithm    = lincs
+constraints             = all-bonds ;all-bonds ;h-bonds ;
+continuation            = yes       ; continuing from NPT
+; Single-range cutoff scheme
+cutoff-scheme   = Verlet
+nstlist         = 20
+ns_type         = grid
+rlist           = 1.4
+rcoulomb        = 1.4
+rvdw            = 1.4
+; PME electrostatics parameters
+coulombtype     = PME
+fourierspacing  = 0.12
+fourier_nx      = 0
+fourier_ny      = 0
+fourier_nz      = 0
+pme_order       = 4
+ewald_rtol      = 1e-5
+optimize_fft    = yes
+; Berendsen temperature coupling is on in two groups
+Tcoupl      = V-rescale
+tc_grps     = BIO ACE_Ion
+tau_t       = 0.1       0.1
+ref_t       = 298.15       298.15
+; Pressure coupling is on
+; With Nose-Hoover T-coupling and Parrinello-Rahman p-coupling, tau-p (1)
+;  should be at least twice as large as tau-t (1) to avoid resonances
+Pcoupl          = Parrinello-Rahman
+pcoupltype      = isotropic
+tau_p           = 2.0
+compressibility = 10.8e-5 ;4.5e-5 ;
+;For water at 1 atm and 300 K the compressibility is 4.5e-5 bar^-1.
+ref_p           = 1.0
+refcoord_scaling = com
+; Generate velocities is off
+; gen_vel     = no
+; Periodic boundary conditions are on in all directions
+pbc     = xyz
+; Long-range dispersion correction
+DispCorr    = EnerPres
+
+
+; Pull code
+pull                    = yes
+pull_ncoords            = 2         ; two reaction coordinate
+pull_ngroups            = 2         ; two groups defining one reaction coordinate
+
+pull_group1_name        = a_13_a_17_a_44_a_46_a_56_a_57_a_67_a_68_a_79_a_80_a_90_a_91
+pull_group2_name        = a_14888
+pull_coord1_type        = umbrella  ; harmonic potential
+pull_coord1_geometry    = distance  ; simple distance increase
+pull_coord1_dim         = N N Y     ; pull only in z direction
+pull_coord1_groups      = 1 2
+pull_coord1_init = 0
+pull_coord1_start       = no       ; yes => define initial COM distance > 0
+pull_coord1_rate        = 0.0      ;
+pull_coord1_k           = 2500      ; kJ mol^-1 nm^-2
+
+; Cylinder
+pull_coord2_type        = flat-bottom  ; umbrella = harmonic potential
+pull_coord2_geometry    = distance  ; simple distance increase
+pull_coord2_dim         = Y Y N     ; pull only in x y direction
+pull_coord2_groups      = 1 2
+pull_coord2_init        = 0.35         ; At distances above pull-coord1-init a harmonic potential is applied, otherwise no potential is applied.
+pull_coord2_start       = no       ; yes => define initial COM distance > 0
+pull_coord2_rate        = 0.0      ;
+pull_coord2_k           = 5000 ; 1000      ; kJ mol^-1 nm^-2

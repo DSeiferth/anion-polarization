@@ -1,0 +1,7 @@
+; position restraints for a_13_a_17_a_67 of Biotin in acetonitrile parsley
+
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+  13    1      50000      50000      50000
+  17    1      50000      50000      50000
+  67    1      50000      50000      50000

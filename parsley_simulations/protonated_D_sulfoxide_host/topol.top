@@ -1,0 +1,20 @@
+; Include forcefield parameters
+#include "itp/forcefield.itp"
+#include "itp/BIO_C-S=O_angle.itp"
+; Include Position restraint file for three carbon cavity atoms
+#ifdef POSRES_3CAV
+#include "carbon_cav.itp"
+#endif
+#include "itp/tip3p.itp"
+#include "itp/ions.itp"
+
+[ system ]
+; Name
+Biotin sulfoxide in water parsley
+
+[ molecules ]
+; Compound	#mols
+UNL                1
+SOL         4466
+K                1
+CL                1

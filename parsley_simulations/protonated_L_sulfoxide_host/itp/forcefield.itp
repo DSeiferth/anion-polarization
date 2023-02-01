@@ -1,0 +1,40 @@
+********************************************************************
+* The original ffamber ports were written by Eric J. Sorin,        *
+* CSU Long Beach, Dept. of Chem & Biochem, and have now been       *
+* integrated with the standard gromacs distribution.               *
+* (Please don't blame Eric for errors we might have introduced.)   *
+* For the implementation/validation, please read/cite:             *
+* Sorin & Pande (2005). Biophys. J. 88(4), 2472-2493.              *
+* For related material and updates, please consult                 *
+* http://chemistry.csulb.edu/ffamber/                              *
+********************************************************************
+
+#define _FF_AMBER
+#define _FF_AMBER03
+
+[ defaults ]
+; nbfunc        comb-rule       gen-pairs       fudgeLJ fudgeQQ
+;1               2               yes             0.5     0.8333
+1               2               no              1            0.83333333
+
+#include "ffnonbonded_Li_et_al.itp"
+;#include "ffbonded.itp"
+
+[ atomtypes ] ; biotin sulfoxide unmethylated
+; name    at.num    mass    charge ptype  sigma      epsilon
+S1_x            16  32.065500  0.00000000  A     0.35635949          1.046
+O1_x             8  15.999430  0.00000000  A     0.29599219        0.87864
+N1_x             7  14.006720  0.00000000  A     0.32499985        0.71128
+C1_x             6  12.010780  0.00000000  A     0.33996695      0.4577296
+C2_x             6  12.010780  0.00000000  A     0.33996695       0.359824
+O2_x             8  15.999430  0.00000000  A     0.30664734      0.8803136
+H1_x             1   1.007947  0.00000000  A      0.2471353      0.0656888
+H2_x             1   1.007947  0.00000000  A    0.053453923   0.0002204968
+H3_x             1   1.007947  0.00000000  A     0.26495328      0.0656888
+H4_x             1   1.007947  0.00000000  A     0.22931733      0.0656888
+;[ atomtypes ] Acetonitril
+; name    at.num    mass    charge ptype  sigma      epsilon
+;C1_A             6  12.010780  0.00000000  A     0.33996695      0.4577296
+;C2_A             6  12.010780  0.00000000  A     0.33996695        0.87864
+;N1_A             7  14.006720  0.00000000  A     0.32499985        0.71128
+;H1_A             1   1.007947  0.00000000  A     0.26495328      0.0656888

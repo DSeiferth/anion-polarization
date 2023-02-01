@@ -1,0 +1,21 @@
+; Include forcefield parameters
+#include "itp/forcefield.itp"
+#include "itp/BIO.itp"
+; Include Position restraint file for three carbon cavity atoms
+#ifdef POSRES_3CAV
+#include "carbon_cav.itp"
+#endif
+
+#include "itp/acetonitrile.itp"
+#include "itp/ions.itp"
+
+[ system ]
+; Name
+Biotin in acetonitrile parsley
+
+[ molecules ]
+; Compound	#mols
+BIO   	           1
+ACE         2445
+K                1
+CL               1
