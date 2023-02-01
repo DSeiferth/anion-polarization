@@ -5,6 +5,7 @@ This repositiory contains all files to reproduce the PMF simulations with differ
 1) biotin[6]uril
 2) biotin-D-sulfoxide
 3) biotin-L-sulfoxide
+
 Anion binding shows strong solvent dependency.  In water, the binding strengths are in the order iodide > bromide > chloride, whereas in acetonitrile this trend is reversed. 
 In acetonitrile, the carboyxl groups of the side chains are methylated (biotin[6]uril hexamethyl ester). In water, the carboxyl groups of the side chain can be either protonated or deprotonated (biotin[6]uril hexaacid).
 ### AMOEBA_simulations
